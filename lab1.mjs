@@ -239,6 +239,7 @@ console.log('Salad 2 har uuid: ' + salad2.uuid);
 // order(salad1, salad2); */
 
 
+
 // Use-case 2
 /* const salad1 = new Salad(); // add ingredients to salad 1
 storeInDatabase(salad1);
