@@ -6,6 +6,7 @@
  */
 
 import inventory from './inventory.mjs';
+import { v4 as uuidv4 } from 'uuid';
 /* console.log('\n=== beginning of printout ================================')
 console.log('inventory:', inventory); */
 console.log('\n--- Object.keys() ---------------------------------------')
@@ -44,7 +45,16 @@ console.log(makeOptions(inventory, 'foundation'));
 
 console.log('\n--- Assignment 2 ---------------------------------------')
 class Salad {
+	static #instanceCounter = 0;
+	#id;
 	constructor(other_salad) {
+		// Check if other_salad is from parse
+		if(other_salad?.parsing && other_salad.uuid){
+			this.uuid = other_salad.uuid;
+		} else{
+			this.uuid = uuidv4(); 
+		}
+		this.#id = 'salad_' + Salad.#instanceCounter++;
 		if(other_salad?.ingredients){ // Fråga om instanceOf och vår alternativa lösning
 			this.ingredients = {...other_salad.ingredients};
 		}
@@ -62,11 +72,15 @@ class Salad {
 	}
 	static parse(json) {
 		const parsedJson = JSON.parse(json)
+		parsedJson.parsing = true;
 		return Array.isArray(parsedJson) ?  parsedJson.map(entry => new Salad(entry)): new Salad(parsedJson);
 		// if(Array.isArray(parsedJson)){
 		// 	return parsedJson.map(entry => new Salad(entry))
 		// }
 		// return new Salad(parsedJson);
+	}
+	get_id(){
+		return this.#id;
 	}
 }
 
@@ -183,20 +197,54 @@ let myGourmetSalad = new GourmetSalad()
 console.log('Min gourmetsallad med lite bacon kostar ' + myGourmetSalad.getPrice() + ' kr');
 myGourmetSalad.add('Bacon', inventory['Bacon'], 1)
 console.log('Med extra bacon kostar den ' + myGourmetSalad.getPrice() + ' kr');
-console.log(GourmetSalad.prototype)
 
-console.log('\n--- Assignment 6 ---------------------------------------')
-/*
-console.log('Min gourmetsallad har id: ' + myGourmetSalad.id);
-console.log('Min gourmetsallad har uuid: ' + myGourmetSalad.uuid);
-*/
+console.log('\n--- Assignment 6 ---------------------------------------');
+// Why is this not allowed
+// let a = myCaesarSalad.get_id()++;
+console.log('Min gourmetsallad har id: ' + myCaesarSalad.get_id());
+console.log('Min gourmetsallad har id: ' + myGourmetSalad.get_id());
+
 
 /**
  * Reflection question 4
+ * 
+ * In the constructor function object.
  */
 /**
  * Reflection question 5
+ * 
+ * Make the property private and add a getter.
  */
 /**
  * Reflection question 6
+ * 
+ * Yes, add # in front. Use getter to access value
  */
+
+
+
+console.log('\n--- Assignment 7 ---------------------------------------');
+console.log('Min caesarsallad har uuid: ' + myCaesarSalad.uuid);
+console.log('SingleCopy har uuid: ' + singleCopy.uuid)
+console.log('Min gourmetsallad har uuid: ' + myGourmetSalad.uuid);
+
+/* // Use-case 1
+const salad1 = new Salad();
+// add ingredients to salad 1
+const salad2 = new Salad(salad1)
+// salad1.uuid !== salad2.uuid, they are different salads
+salad2.add('Bacon', inventory['Bacon']);
+console.log('Salad 1 har uuid: ' + salad1.uuid);
+console.log('Salad 2 har uuid: ' + salad2.uuid);
+// order(salad1, salad2); */
+
+
+// Use-case 2
+/* const salad1 = new Salad(); // add ingredients to salad 1
+storeInDatabase(salad1);
+// app is reloaded, all JavaScript objects are lost
+const text = fetchFromDatabase();
+const salad2 = Salad.parse(text);
+// salad1.uuid === salad2.uuid, they are the same salad
+salad2.add('Bacon', inventory['Bacon']);
+storeSaladInDatabase(salad2); // update the existing salad */
