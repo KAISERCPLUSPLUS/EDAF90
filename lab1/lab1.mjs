@@ -52,7 +52,7 @@ class Salad {
 		if(other_salad?.parsing && other_salad.uuid){
 			this.uuid = other_salad.uuid;
 		} else{
-			this.uuid = uuidv4(); 
+			this.uuid = uuidv4();
 		}
 		this.#id = 'salad_' + Salad.#instanceCounter++;
 		if(other_salad?.ingredients){ // Fråga om instanceOf och vår alternativa lösning
@@ -207,17 +207,18 @@ console.log('Min gourmetsallad har id: ' + myGourmetSalad.get_id());
 
 /**
  * Reflection question 4
- * 
+ *
  * In the constructor function object.
  */
 /**
  * Reflection question 5
- * 
- * Make the property private and add a getter.
+ *
+ * use defineProperty to set attribute "writable" to false
+ * Make the property private and add a getter?
  */
 /**
  * Reflection question 6
- * 
+ *
  * Yes, add # in front. Use getter to access value
  */
 
