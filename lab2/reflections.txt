@@ -1,0 +1,52 @@
+Reflection Q1: The render function must be a pure function of props and the
+component state, the values returned by useState(). What happens if the output of the
+render function is depending on other data that changes over time?
+
+Answer Q1: The DOM will only be updated when the states are changed.
+Other variables will not cause the DOM to update their respective
+components and therefore unexpected behaviour will be seen
+
+
+Reflection Q2: In the code above, the foundations array is computed every time
+the component is rendered. The inventory changes very infrequent so you might think this
+is inefficient. Can you cache foundations so it is only computed when props.inventory
+changes? Hint, read about the second parameter to useEffect, “Learn React”/“Escape
+Hatches”/“Synchronizing with Effects”, https://react.dev/learn/synchronizing-with-effects.
+Is it a good idea? Read You Might Not Need an Effect: https://react.dev/learn/you-might-not-need-an-effect
+
+Answer Q2: yes, it should be possible to trigger an update in the DOM dependent on the second parameter.
+TLDR on the last link.
+
+
+Reflection Q3: Should you move the foundation state to the Select component
+above? To answer this you need to consider what happens when the user submits the
+form.
+
+Answer Q4: #TODO
+
+
+Reflection Q4: What triggers react to call the render function and update the DOM?
+
+Answer Q4: Changes in states. More?
+
+
+Reflection Q5: When the user change the html form state (DOM), does this change
+the state of your component?
+
+Answer Q5: No, the React States are the absolute truth and updating the values in other ways will not trigger a state update
+
+
+Reflection Q6: What is the value of `this` in the event handling call-back functions?
+
+Answer Q6: undefined
+"as an inline DOM event handler - the DOM element on which the listener is
+placed" ???
+
+
+Reflection Q7: How is the prototype chain affected when copying an object with
+copy = {...sourceObject}?
+
+Answer Q7: The spread operator only copies enumerable properties. However, since we use the spread operator on an array,
+it is the array that will be copied, creating shallow copies (copies of the references to the objects),
+and thus the objects' prototype chains remain intact. The array's prototype chain however is removed but added
+again from the creation of a new array.
