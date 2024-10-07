@@ -21,6 +21,7 @@ const names = Object.keys(inventory);
 // }
 /**
  * Reflection question 2
+ * in "keys" inherited properties aren't included. For each also loops over inherited.
  * forEach is a non-enumerable property, inherited from Object.prototype. For in only iterates over enumerable properties
  */
 
@@ -33,7 +34,10 @@ console.log('\n--- Assignment 1 ---------------------------------------')
 
 function makeOptions(inv, prop) {
 	const options = Object.entries(inv)
-		.filter((entry)=>entry[prop])
+		.filter((entry)=>{
+			entry[prop];
+			console.log("entry", entry)
+		})
 		.map(element =>
 			`<option value="${element[0]}" key="${element[0]}"> ${element[0]}, ${element[1]["price"]} kr</option>`
 		)
@@ -49,6 +53,7 @@ class Salad {
 	#id;
 	constructor(other_salad) {
 		// Check if other_salad is from parse
+		console.log("skapar sallad")
 		if(other_salad?.parsing && other_salad.uuid){
 			this.uuid = other_salad.uuid;
 		} else{
@@ -74,10 +79,6 @@ class Salad {
 		const parsedJson = JSON.parse(json)
 		parsedJson.parsing = true;
 		return Array.isArray(parsedJson) ?  parsedJson.map(entry => new Salad(entry)): new Salad(parsedJson);
-		// if(Array.isArray(parsedJson)){
-		// 	return parsedJson.map(entry => new Salad(entry))
-		// }
-		// return new Salad(parsedJson);
 	}
 	get_id(){
 		return this.#id;
@@ -199,8 +200,6 @@ myGourmetSalad.add('Bacon', inventory['Bacon'], 1)
 console.log('Med extra bacon kostar den ' + myGourmetSalad.getPrice() + ' kr');
 
 console.log('\n--- Assignment 6 ---------------------------------------');
-// Why is this not allowed
-// let a = myCaesarSalad.get_id()++;
 console.log('Min gourmetsallad har id: ' + myCaesarSalad.get_id());
 console.log('Min gourmetsallad har id: ' + myGourmetSalad.get_id());
 
@@ -250,3 +249,5 @@ const salad2 = Salad.parse(text);
 // salad1.uuid === salad2.uuid, they are the same salad
 salad2.add('Bacon', inventory['Bacon']);
 storeSaladInDatabase(salad2); // update the existing salad */
+
+export default Salad

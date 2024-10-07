@@ -1,3 +1,5 @@
+
+### Lab 2
 Reflection Q1: The render function must be a pure function of props and the
 component state, the values returned by useState(). What happens if the output of the
 render function is depending on other data that changes over time?
@@ -50,3 +52,12 @@ Answer Q7: The spread operator only copies enumerable properties. However, since
 it is the array that will be copied, creating shallow copies (copies of the references to the objects),
 and thus the objects' prototype chains remain intact. The array's prototype chain however is removed but added
 again from the creation of a new array.
+
+
+### Lab 3
+
+Reflection Q1: What is the difference between using <Link> and <NavLink> in your
+navigation bar? Try it: click on a tab and then outside it to move the focus away from the
+tab. You can also reload the page.
+
+Answer Q1: NavLink keeps showing the selection while Link doesn't as soon as it is not in focus
